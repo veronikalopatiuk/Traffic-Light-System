@@ -26,7 +26,6 @@ class Timer extends Observable {
         if(this.timerId === null) {
             this.timerId = setInterval(() => {
                 this.notifyAll("hi");
-                this.stop();
             }, seconds * 1000)
         }
     }
@@ -35,6 +34,7 @@ class Timer extends Observable {
         if(this.timerId === null){
             this.timerId = setTimeout(() => {
                 this.notifyAll("hello");
+                this.stop();
             }, seconds * 1000)
         }
     }
