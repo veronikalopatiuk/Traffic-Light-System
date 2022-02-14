@@ -1,60 +1,79 @@
 class Observable {
-    constructor() {
-        this.observers = [];
-    }
+  constructor() {
+    this.observers = [];
+  }
 
-    addObserver(observer) {
-        this.observers.push(observer);
-    }
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
 
-    notifyAll(message) {
-        if (this.observers.length > 0) {
-            this.observers.forEach(observer => observer.update(message));
-        }
+  notifyAll(message) {
+    if (this.observers.length > 0) {
+      this.observers.forEach((observer) => observer.update(message));
     }
-
+  }
 }
 
 class Timer extends Observable {
+  constructor() {
+    super();
+    this.timerId = null;
+  }
 
-    constructor() {
-        super();
-        this.timerId = null;
-    }
+  async startTimer(seconds) {
+    return new Promise((resolve, reject) => {
+      if (this.timerId === null) {
+        this.timerId = setInterval(() => {
+          this.notifyAll("hi");
+        }, seconds * 1000);
+        resolve();
+      }
+    });
+  }
 
-    startTimer(seconds){
-        if(this.timerId === null) {
-            this.timerId = setInterval(() => {
-                this.notifyAll("hi");
-            }, seconds * 1000)
-        }
-    }
+  async startCountDown(seconds) {
+    return new Promise((resolve, reject) => {
+      if (this.timerId === null) {
+        this.timerId = setTimeout(() => {
+          this.notifyAll("hello");
+          this.stop();
+          resolve();
+        }, seconds * 1000);
+      }
+    });
+  }
 
-    startCountDown(seconds) {
-        if(this.timerId === null){
-            this.timerId = setTimeout(() => {
-                this.notifyAll("hello");
-                this.stop();
-            }, seconds * 1000)
-        }
-    }
-
-    stop() {
-        clearInterval(this.timerId);
-        clearTimeout(this.timerId);
-        this.timerId = null;
-    }
-
+  stop() {
+    clearInterval(this.timerId);
+    clearTimeout(this.timerId);
+    this.timerId = null;
+  }
 }
 
 class DummyObserver {
-    update(message) {
-      console.log("i've got an update! " + message);
-    }
+  update(message) {
+    const now = new Date();
+    const dateTimeFormatted = `${now.toLocaleDateString("fr-CA")} ${now.toLocaleTimeString("fr-FR")}`
+    console.log(`${dateTimeFormatted}: ${message}`);
+  }
 }
 
 const client = new DummyObserver();
 const subject = new Timer();
 subject.addObserver(client);
-subject.startCountDown(5);
-subject.startTimer(1);
+
+(async () => {
+  try {
+    const message = "started running...";
+    const now = new Date();
+    const dateTimeFormatted = `${now.toLocaleDateString("fr-CA")} ${now.toLocaleTimeString("fr-FR")}`
+    console.log(`${dateTimeFormatted}: ${message}`);
+
+    await subject.startCountDown(5);
+    await subject.startTimer(1);
+  } catch (error) {
+    console.error(error);
+  }
+})();
+
+// https://stackoverflow.com/questions/27939773/tolocaledatestring-short-format
