@@ -51,10 +51,17 @@ class Timer extends Observable {
 }
 
 class Controller {
+  #config;
 
     constructor() {
         this.channels = new Map();
-        this.config = require("./TrafficLights.json");
+        this.#config = require("./config.json");
+
+        for (const [key, value] of Object.entries(this.config.channels)) {
+          const {name, trafficLights} = value;
+          this.channels.set(key, new Channel(name, trafficLights))
+        }
+
     }
 
     update(message) {
@@ -62,6 +69,33 @@ class Controller {
         const dateTimeFormatted = `${now.toLocaleDateString("fr-CA")} ${now.toLocaleTimeString("fr-FR")}`
         console.log(`${dateTimeFormatted}: ${message}`);
     }
+}
+
+class Channel {
+  #name;
+  #trafficLights;
+
+  constructor(name, trafficLights) {
+    if(typeof name !== "string" || name === "") {
+      throw Error("Name can't be an empty string!");
+    }
+
+    if(!Array.isArray(trafficLights)) {
+      throw Error("Traffic lights must be an array!");
+    }
+    
+    this.#name = name;
+    this.#trafficLights = trafficLights;
+  }
+
+  get name() {
+    return this.#name;
+  }
+
+  get trafficLights() {
+    return this.#trafficLights;
+  }
+
 }
 
 const controller = new Controller();
