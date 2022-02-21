@@ -50,4 +50,4 @@ class Timer extends Observable {
     }
 }
 
-export default Timer;
+module.exports = Timer;

@@ -1,4 +1,4 @@
-const TrafficLight = require("./Data");
+const { TrafficLight, Status } = require("./Model");
  
 class Channel {
     #name;
@@ -54,6 +54,8 @@ class Controller {
       this.#config = require("../config.json");
       this.loadChannels();
       this.loadProgram();
+      
+      this.status = Status.STOPPED;
   }
 
   update(message) {
