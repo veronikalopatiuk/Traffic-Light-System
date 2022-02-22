@@ -38,4 +38,46 @@ class Status {
   }
 }
 
-module.exports = { TrafficLight, Status };
+class State {
+  #timestamp;
+  #state;
+
+  constructor(channels, cycle) {
+    this.#timestamp = this.#getTimestamp();
+    this.#state = this.#setState();
+  }
+
+  get timestamp() {
+    return this.#timestamp;
+  }
+
+  get state() {
+    return this.#state;
+  }
+
+  #setState() {
+    return new Map();
+  }
+
+  #getTimestamp() {
+    const now = new Date();
+    return `${now.toLocaleDateString("fr-CA")} ${now.toLocaleTimeString("fr-FR")}`;
+  }
+
+  toObject() {
+    const obj = {
+      timestamp: this.#timestamp,
+      state: {}
+    };
+
+    for (const [key, value] of this.#state.entries()) {
+      obj.state[key] = value;
+    }
+    
+    return obj;
+
+  }
+
+}
+
+module.exports = { TrafficLight, Status, State };

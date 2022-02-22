@@ -1,4 +1,4 @@
-const { TrafficLight, Status } = require("./Model");
+const { TrafficLight, Status, State } = require("./Model");
  
 class Channel {
     #name;
@@ -43,35 +43,48 @@ class Program {
     get cycle() {
       return this.#cycle;
     }
+
+    getCycle(i) {
+      const cycle = new Map();
+      for (const [key, value] of this.#cycle.entries()) {
+        cycle.set(key, value[i]);
+      }
+      return cycle;
+    }
 }
 
 class Controller {
   #config;
+  #channels;
+  #program;
 
   constructor() {
-      this.channels = new Map();
-      this.program = null;
-      this.#config = require("../config.json");
-      this.loadChannels();
-      this.loadProgram();
+    this.#config = require("../config.json");
+    this.#channels = this.#loadChannels();
+    this.#program = this.#loadProgram();
+    this.cycleIndex = 0;
       
-      this.status = Status.STOPPED;
+    this.status = Status.STOPPED;
   }
 
-  update(message) {
-      const now = new Date();
-      const dateTimeFormatted = `${now.toLocaleDateString("fr-CA")} ${now.toLocaleTimeString("fr-FR")}`
-      console.log(`${dateTimeFormatted}: ${message}`);
+  get program() {
+    return this.#program;
   }
 
-  loadChannels() {
+  update() {
+    this.cycleIndex = (this.cycleIndex + 1) % this.program.length;
+  }
+
+  #loadChannels() {
+    const channels = new Map()
     for (const [key, value] of Object.entries(this.#config.channels)) {
       const {name, trafficLights} = value;
-      this.channels.set(key, new Channel(name, trafficLights))
+      channels.set(key, new Channel(name, trafficLights))
     }
+    return channels;
   }
 
-  loadProgram() {
+  #loadProgram() {
     const length = this.#config.program.length;
     const cycle = new Map();
 
@@ -82,8 +95,11 @@ class Controller {
       }
       cycle.set(key, trafficLights);
     }
+    return new Program(length, cycle);
+  }
 
-    this.program = new Program(length, cycle);
+  getState() {
+    return new State(this.#channels, this.#program.getCycle(this.cycleIndex));
   }
 
 }
