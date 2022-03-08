@@ -20,6 +20,15 @@ class TrafficLight {
     get g() {
       return this.#g;
     }
+
+    toObject() {
+      return {
+        R: this.#r,
+        Y: this.#y,
+        G: this.#g
+      };
+    }
+
 }
 
 class Status {
@@ -44,7 +53,7 @@ class State {
 
   constructor(channels, cycle) {
     this.#timestamp = this.#getTimestamp();
-    this.#state = this.#setState();
+    this.#state = this.#getState(channels, cycle);
   }
 
   get timestamp() {
@@ -55,8 +64,16 @@ class State {
     return this.#state;
   }
 
-  #setState() {
-    return new Map();
+  #getState(channels, cycle) {
+    const state = new Map();
+
+    for (const [key, value] of channels.entries()) {
+      value.trafficLights.forEach(trafficLight => {
+        state.set(trafficLight, cycle.get(key))
+      })
+    }
+
+    return state;
   }
 
   #getTimestamp() {
@@ -71,9 +88,8 @@ class State {
     };
 
     for (const [key, value] of this.#state.entries()) {
-      obj.state[key] = value;
+      obj.state[key] = value.toObject();
     }
-    
     return obj;
 
   }

@@ -2,6 +2,7 @@ const {Controller} = require("./Components/TrafficController");
 const Timer = require("./Components/Timer");
 
 const controller = new Controller();
+controller.getState();
 
 const client = new Controller();
 const subject = new Timer();
