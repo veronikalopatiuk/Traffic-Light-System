@@ -69,7 +69,7 @@ class State {
 
     for (const [key, value] of channels.entries()) {
       value.trafficLights.forEach(trafficLight => {
-        state.set(trafficLight, cycle.get(key))
+        state.set(trafficLight, cycle.get(key));
       })
     }
 

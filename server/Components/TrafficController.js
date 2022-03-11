@@ -112,7 +112,20 @@ class Controller {
   }
 
   getState() {
-    return new State(this.#channels, this.#program.getCycle(this.cycleIndex));
+    if(this.#status === Status.STOPPED){
+
+      const cycle = new Map();
+
+      for (const [key, value] of this.#channels.entries()) {
+        cycle.set(key, new TrafficLight(1, 0, 0));
+      }
+
+      return new State(this.#channels, cycle);
+      
+    } else {
+
+      return new State(this.#channels, this.#program.getCycle(this.cycleIndex));
+    }
   }
 
 }
