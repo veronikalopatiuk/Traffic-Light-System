@@ -57,6 +57,7 @@ class Controller {
   #config;
   #channels;
   #program;
+  #status;
 
   constructor() {
     this.#config = require("../config.json");
@@ -64,7 +65,19 @@ class Controller {
     this.#program = this.#loadProgram();
     this.cycleIndex = 0;
       
-    this.status = Status.STOPPED;
+    this.#status = Status.STOPPED;
+  }
+
+  get status() {
+    return this.#status;
+  }
+
+  set status(status) {
+    if(Object.values(Status).includes(status)) {
+      this.#status = status;
+    } else {
+      throw Error("`status` must be value of Status enum! Example: Status.STOPPED");
+    }
   }
 
   get program() {
