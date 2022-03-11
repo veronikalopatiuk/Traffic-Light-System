@@ -1,5 +1,7 @@
 const {Controller} = require("./Components/TrafficController");
 const Timer = require("./Components/Timer");
+const { Status } = require("./Components/Model");
+const { Logger } = require("./Components/Utils");
 
 const controller = new Controller();
 controller.getState();
@@ -9,12 +11,10 @@ timer.addObserver(controller);
 
 (async () => {
   try {
-    const message = "started running...";
-    const now = new Date();
-    const dateTimeFormatted = `${now.toLocaleDateString("fr-CA")} ${now.toLocaleTimeString("fr-FR")}`
-    console.log(`${dateTimeFormatted}: ${message}`);
+    Logger.info("started running...");
 
     await timer.startCountDown(5);
+    controller.status = Status.STARTED;
     await timer.startTimer(1);
   } catch (error) {
     console.error(error);
