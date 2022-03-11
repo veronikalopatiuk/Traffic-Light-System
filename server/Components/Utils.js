@@ -19,7 +19,7 @@ class Logger {
 
   static warning(message) {
     console.warn(`${Logger.#getDateTime()} [WRN]: ${message}`);
-  } 
+  }
 }
 
 module.exports = { Logger };

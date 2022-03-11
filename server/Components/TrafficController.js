@@ -1,4 +1,5 @@
 const { TrafficLight, Status, State } = require("./Model");
+const { Logger } = require("./Utils");
  
 class Channel {
     #name;
@@ -86,6 +87,7 @@ class Controller {
 
   update() {
     this.cycleIndex = (this.cycleIndex + 1) % this.program.length;
+    Logger.log(`cycle index ${this.cycleIndex}`);
   }
 
   #loadChannels() {
@@ -121,7 +123,7 @@ class Controller {
       }
 
       return new State(this.#channels, cycle);
-      
+
     } else {
 
       return new State(this.#channels, this.#program.getCycle(this.cycleIndex));

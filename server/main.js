@@ -4,7 +4,7 @@ const { Status } = require("./Components/Model");
 const { Logger } = require("./Components/Utils");
 
 const controller = new Controller();
-controller.getState();
+
 
 const timer = new Timer();
 timer.addObserver(controller);

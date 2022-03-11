@@ -5,6 +5,7 @@ const cors = require("cors");
 const { Controller } = require("./Components/TrafficController");
 const Timer = require("./Components/Timer");
 const { Status } = require("./Components/Model");
+const { Logger } = require("./Components/Utils");
 
 const controller = new Controller();
 const timer = new Timer();
@@ -23,6 +24,8 @@ app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`));
 
 (async () => {
     try {  
+      Logger.info("started running...");
+
       await timer.startCountDown(5);
       controller.status = Status.STARTED;
       await timer.startTimer(1);
