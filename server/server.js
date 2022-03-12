@@ -20,6 +20,11 @@ app.get("/", function (request, response){
     response.status(200).send("Hello");
 })
 
+
+app.get("/state", function (request, response){
+  response.status(200).send(controller.getState().toObject());
+})
+
 app.listen(SERVER_PORT, () => console.log(`Server running on ${SERVER_PORT}`));
 
 (async () => {
