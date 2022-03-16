@@ -6,15 +6,15 @@ import Road from "./Components/Road";
 function App() {
   return (
     <div className = "container">
-      <Grass />
+      <Grass direction="W" />
       <Road roadType="vertical" />
-      <Grass />
+      <Grass direction="N" />
       <Road roadType="horizontal" />
       <Intersection />
       <Road roadType="horizontal" />
-      <Grass />
+      <Grass direction="S"/>
       <Road roadType="vertical" />
-      <Grass />
+      <Grass direction="E" />
     </div>
   );
 }

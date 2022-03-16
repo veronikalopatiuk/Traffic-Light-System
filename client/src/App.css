@@ -9,8 +9,67 @@ body {
 }
 
 .traffic-light-area {
+  display: flex;
   width: calc(50% - 100px);
   height: calc(50vh - 100px);
+  background-color: green;
+}
+
+.traffic-light-area.W {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.traffic-light-area.N {
+  align-items: flex-end;
+}
+
+.traffic-light.N {
+  flex-direction: column;
+}
+
+.traffic-light-area.S {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.traffic-light.S {
+  flex-direction: column-reverse;
+}
+
+.traffic-light-area.E {
+  align-items: flex-start;
+}
+
+.traffic-light.E {
+  flex-direction: row-reverse;
+}
+
+.traffic-light {
+  display: flex;
+  margin: 5px;
+  border: 1px solid black;
+  background-color: grey;
+  padding: 5px;
+  gap: 5px;
+}
+
+.traffic-light div {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.green {
   background-color: green;
 }
 
