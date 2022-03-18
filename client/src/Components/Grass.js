@@ -1,10 +1,6 @@
-import TrafficLight from "./TrafficLight.js";
-
-const Grass = ({direction}) => {
+const Grass = ({children}) => {
     return (
-        <div className = {`traffic-light-area ${direction}`}>
-            <TrafficLight direction={direction}/>
-        </div>
+        <div className = "grass">{children}</div>
     );
 }
  

@@ -8,19 +8,24 @@ body {
   flex-wrap: wrap;
 }
 
-.traffic-light-area {
-  display: flex;
+.grass {
   width: calc(50% - 100px);
   height: calc(50vh - 100px);
   background-color: green;
 }
 
-.traffic-light-area.W {
+.traffic-light-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.traffic-light-container.W {
   align-items: flex-end;
   justify-content: flex-end;
 }
 
-.traffic-light-area.N {
+.traffic-light-container.N {
   align-items: flex-end;
 }
 
@@ -28,7 +33,7 @@ body {
   flex-direction: column;
 }
 
-.traffic-light-area.S {
+.traffic-light-container.S {
   align-items: flex-start;
   justify-content: flex-end;
 }
@@ -37,7 +42,7 @@ body {
   flex-direction: column-reverse;
 }
 
-.traffic-light-area.E {
+.traffic-light-container.E {
   align-items: flex-start;
 }
 
@@ -49,7 +54,7 @@ body {
   display: flex;
   margin: 5px;
   border: 1px solid black;
-  background-color: grey;
+  background-color: black;
   padding: 5px;
   gap: 5px;
 }
@@ -62,15 +67,15 @@ body {
 }
 
 .red {
-  background-color: red;
+  background-color: grey;
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: grey;
 }
 
 .green {
-  background-color: green;
+  background-color: grey;
 }
 
 .vertical {
