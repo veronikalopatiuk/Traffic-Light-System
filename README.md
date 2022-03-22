@@ -2,7 +2,7 @@
 
 Traffic Lights System is a simmulation of real-life traffic lights in an intersection.
 
-![traffic lights](traffic-light-page.jpg)
+![traffic lights](docs/traffic-light-page.jpg)
 
 # How to Install and run the Project
 
@@ -14,25 +14,25 @@ Traffic Lights System is a simmulation of real-life traffic lights in an interse
 
 The idea was simple - create a road intersection. This was the idea of how it's supposed to look like:
 
-![traffic light diagram with cars](traffic-lights-diagram-cars.png)
+![traffic light diagram with cars](docs/traffic-lights-diagram-cars.png)
 
 As you can see, it's pretty much the same as the final product.
 
 # Traffic Light Logic
 
-![traffic light logic diagram](traffic-lights-logic-diagram.png)
+![traffic light logic diagram](docs/traffic-lights-logic-diagram.png)
 
 The logic is straight-forward, one strip tells you what colour the traffic light should be.
 
 For example, strip 5 tells us that the Glasgow Road (T1 & T3) traffic lights are green and Main Street (T2 & T4) traffic lights are red.
 
-![traffic light logic diagram](traffic-light-timer-rotation.png)
+![traffic light logic diagram](docs/traffic-light-timer-rotation.png)
 
 Each of the strips is worth a second, meaning that we update our traffic lights every second.
 
 This is an example of a JSON file which respresents configuration for controller. Here's how it looks like:
 
-![JSON](json.png)
+![JSON](docs/json.png)
 
 # Back End
 
@@ -44,7 +44,7 @@ The config file is made out of 2 parts:
 
 Backend has an endpoint that provides data with state of controller and channels (at the time the data was requested).
 
-![UML diagram](uml-diagram.png)
+![UML diagram](docs/uml-diagram.png)
 
 # Front End
 
